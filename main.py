@@ -1,2 +1,4 @@
+import maze_dataset
 import pygame
-print("Hello World")
+
+pygame.init()
