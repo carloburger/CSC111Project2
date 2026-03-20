@@ -9,7 +9,9 @@ for vertex_id, vertex in g.get_all_vertices().items():
     print(vertex_id)
     print("Value: ", vertex.get_item())
     print("#############################")
-    print("Neighbors: ", vertex.get_neighbours())
+    print("Neighbors: ", )
+    for neighbour in vertex.get_neighbours():
+        print(neighbour)
 
 
 pygame.init()

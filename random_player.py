@@ -30,7 +30,7 @@ class Random_Player(Player):
         while self.get_current_position() != end:
             current = self.get_current_position()
             neighbours = self._graph.get_neighbours(current)
-            valid_choices = [n for n in neighbours if n != 0]
+            valid_choices = {n for n in neighbours if n != 0}
             choice = random.choice(valid_choices)
             self.move(choice)
         return []

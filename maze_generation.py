@@ -40,12 +40,12 @@ def number_maze(maze: MazeDataset) -> Graph:
         coord1 = connection[0]
         coord2 = connection[1]
 
-        v1 = coord1[0] * 10 + coord1[1]
-        v2 = coord2[0] * 10 + coord2[1]
+        v1 = coord1[0] * 10 + coord1[1] + 1
+        v2 = coord2[0] * 10 + coord2[1] + 1
 
         graph.add_vertex(v1)
         graph.add_vertex(v2)
 
         graph.add_edge(v1, v2)
-        
+
     return graph
