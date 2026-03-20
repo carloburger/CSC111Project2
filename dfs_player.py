@@ -1,5 +1,6 @@
 from player import Player
 from graph import Graph
+from typing import Any
 
 class DFSPlayer(Player):
     """A player that solves the maze using Depth-First Search.
@@ -25,3 +26,10 @@ class DFSPlayer(Player):
         for position in path:
             self.move(position)
         return self._path
+    
+    def get_path_dfs(self, start: Any, end: Any) -> list:
+        """Return the shortest path from start to end using DFS, or an empty list if none exists.
+        """
+        if start not in self._graph._vertices or end not in self._graph._vertices:
+            return []
+        return self._graph._vertices[start].get_path(end, set())
