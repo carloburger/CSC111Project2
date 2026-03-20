@@ -72,7 +72,10 @@ class _Vertex:
                     if path:
                         return [self.item] + path
             return []
-
+        
+    def get_neighbours(self) -> set:
+        """Return the set of items adjacent to this vertex."""
+        return {v.item for v in self.neighbours}
 
     # def get_connected_component(self, visited: set[_Vertex]) -> set:
     #     """Return a set of all ITEMS connected to self by a path that does not use
@@ -125,9 +128,8 @@ class Graph:
 
         If a vertex with the given item already exists in this graph, raise ValueError.
         """
-        if item in self._vertices:
-            raise ValueError
-        self._vertices[item] = _Vertex(item, set())
+        if item not in self._vertices:
+            self._vertices[item] = _Vertex(item, set())
 
 
     def add_edge(self, item1: Any, item2: Any) -> None:
@@ -206,9 +208,9 @@ class Graph:
             raise ValueError
         return {v.item for v in self._vertices[item].neighbours}
     
-    def get_all_vertices(self) -> set:
-        """Returns a set of all the verticies in the graph."""
-        return set(self._vertices)
+    def get_all_vertices(self) -> dict[Any, _Vertex]:
+        """Returns all vertices in the graph."""
+        return self._vertices
     
     def remove_vertex(self, item: Any) -> None:
         if item not in self._vertices:
@@ -219,37 +221,6 @@ class Graph:
                 raise ValueError
             neighbour.neighbours.remove(vertex)
         self._vertices.pop(item)
-
-    #Algortihms: 
-    def get_path_dfs(self, start: Any, end: Any) -> list:
-        """Return the shortest path from start to end using DFS, or an empty list if none exists.
-        """
-        if start not in self._vertices or end not in self._vertices:
-            return []
-        return self._vertices[start].get_path(end, set())
-    
-    def get_path_bfs(self, start: Any, end: Any) -> list:
-        """Return the shortest path from start to end using BFS, or an empty list if none exists.
-        """
-        if start not in self._vertices or end not in self._vertices:
-            return []
-        
-        queue = [[start]]
-        visited = {start}
-        
-        while queue:
-            path = queue.pop(0)
-            current = path[-1]
-            
-            if current == end:
-                return path
-            
-            for neighbour in self.get_neighbours(current):
-                if neighbour not in visited:
-                    visited.add(neighbour)
-                    queue.append(path + [neighbour])
-        
-        return []
 
     # def get_connected_component(self, item: Any) -> set:
     #     """Return a set of all ITEMS connected to the given item in this graph.

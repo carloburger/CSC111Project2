@@ -1,7 +1,9 @@
+from graph import Graph
+from graph import _Vertex
 import muutils.json_serialize.util as u
-
-with open(u.__file__, "a") as f:
-    f.write('\n_FORMAT_KEY = "__format__"\n')
+u._FORMAT_KEY = "__format__"
+import sys
+sys.modules['muutils.json_serialize.util']._FORMAT_KEY = "__format__"
 
 
 from maze_dataset import MazeDataset, MazeDatasetConfig
@@ -25,5 +27,25 @@ def generate_mazes(n: int = 10) -> MazeDataset:
 
     return dataset
 
+def number_maze(maze: MazeDataset) -> Graph:
+    """
+    Convert a MazeDataset instance into a graph object where the vertices 
+    contain numbers from 1 to n^2, where n is the number of rows/columns in the maze.
+    """
+    
+    graph = Graph()
+    adj_list = maze.as_adj_list()
 
+    for connection in adj_list:
+        coord1 = connection[0]
+        coord2 = connection[1]
 
+        v1 = coord1[0] * 10 + coord1[1]
+        v2 = coord2[0] * 10 + coord2[1]
+
+        graph.add_vertex(v1)
+        graph.add_vertex(v2)
+
+        graph.add_edge(v1, v2)
+        
+    return graph
