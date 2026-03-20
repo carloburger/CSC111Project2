@@ -1,5 +1,6 @@
 from player import Player
 from graph import Graph
+from typing import Any
 
 class BFSPlayer(Player):
     """A player that solves the maze using Breadth-First Search.
@@ -25,6 +26,7 @@ class BFSPlayer(Player):
         for position in path:
             self.move(position)
         return self._path
+    
     def get_path_bfs(self, start: Any, end: Any) -> list:
         """Return the shortest path from start to end using BFS, or an empty list if none exists.
         """
@@ -37,11 +39,12 @@ class BFSPlayer(Player):
         while queue:
             path = queue.pop(0)
             current = path[-1]
+            self._num_moves += 1
             
             if current == end:
                 return path
             
-            for neighbour in self.graph_.get_neighbours(current):
+            for neighbour in self._graph.get_neighbours(current):
                 if neighbour not in visited:
                     visited.add(neighbour)
                     queue.append(path + [neighbour])
