@@ -1,6 +1,7 @@
 from player import Player
 from graph import Graph
 from typing import Any
+from typing import Any
 
 class BFSPlayer(Player):
     """A player that solves the maze using Breadth-First Search.
@@ -39,6 +40,7 @@ class BFSPlayer(Player):
         while queue:
             path = queue.pop(0)
             current = path[-1]
+            self._num_moves += 1
             
             if current == end:
                 return path
