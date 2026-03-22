@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Any
 
-    
+
 class _Vertex:
     """A vertex in a graph.
 
@@ -72,7 +72,7 @@ class _Vertex:
                     if path:
                         return [self.item] + path
             return []
-        
+
     def get_neighbours(self) -> set:
         """Return the set of items adjacent to this vertex."""
         return {v.item for v in self.neighbours}
@@ -171,16 +171,16 @@ class Graph:
             if v1.check_connected(v2.item, set()):
                 return True
         return False
-    
+
     def get_path(self, item1: Any, item2: Any) -> list:
         """Return a path between item1 and item2, or an empty list if none exists."""
         if item1 in self._vertices and item2 in self._vertices:
             return self._vertices[item1].get_path(item2, set())
         return []
-    
+
     def is_vertex(self, item: Any) -> bool:
         """Return whether the given item exists as a vertex in this graph.
-        
+
         >>> g = Graph()
         >>> g.add_vertex(1)
         >>> g.is_vertex(1)
@@ -189,12 +189,12 @@ class Graph:
         False
         """
         return item in self._vertices
-    
+
     def get_neighbours(self, item: Any) -> set:
         """Return the set of items adjacent to the given item in this graph.
-        
+
         Raise a ValueError if item does not appear as a vertex in this graph.
-        
+
         >>> g = Graph()
         >>> g.add_vertex(1)
         >>> g.add_vertex(2)
@@ -207,12 +207,15 @@ class Graph:
         if item not in self._vertices:
             raise ValueError
         return {v.item for v in self._vertices[item].neighbours}
-    
+
     def get_all_vertices(self) -> dict[Any, _Vertex]:
         """Returns all vertices in the graph."""
         return self._vertices
-    
+
     def remove_vertex(self, item: Any) -> None:
+        """Remove the specified vertex if item is in self._graph._vertices.
+        If item is not in the graph, raise ValueError.
+        """
         if item not in self._vertices:
             raise ValueError
         vertex = self._vertices[item]
@@ -246,6 +249,8 @@ class Graph:
     #         return self._vertices[item].get_connected_component(set())
 
 
+
+
 if __name__ == '__main__':
 
     import doctest
@@ -259,4 +264,3 @@ if __name__ == '__main__':
         'max-line-length': 120,
         'max-nested-blocks': 4
     })
- 
