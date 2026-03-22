@@ -1,6 +1,5 @@
 from graph import Graph
 from player import Player
-from typing import Any
 
 
 class HandOnWallPlayer(Player):
@@ -22,26 +21,24 @@ class HandOnWallPlayer(Player):
         self._num_moves = 0
         self._path = []
 
-
     def walkthrough(self, start: int, finish: int) -> list:
         """Solve the maze from start to finish using the hand on the wall method (left hand).
         The path the player takes will be stored and returned at the end.
         """
         directions = [1, 10, -1, -10]
-        current_location = start  #initial position ()
+        current_location = start  # initial position ()
         current_direction = 0
         left_hand = 3
         stored_path = []
         vertices = self._graph.get_all_vertices()
 
-
         while current_location != finish:
             assert current_location in vertices
 
             if left_hand < 3:
-                    left_hand += 1
+                left_hand += 1
             else:
-                    left_hand = 0
+                left_hand = 0
             if current_location + directions[left_hand] in vertices[current_location].get_neighbours():
                 stored_path.append(current_direction)
                 current_location = current_location + directions[left_hand]
@@ -57,9 +54,10 @@ class HandOnWallPlayer(Player):
 
         return stored_path
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     import doctest
+
     doctest.testmod()
 
     import python_ta
@@ -70,4 +68,3 @@ if __name__ == '__main__':
         'max-line-length': 120,
         'max-nested-blocks': 4
     })
-
